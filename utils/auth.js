@@ -1,4 +1,4 @@
-const { admin, db } = require('../utils/admin');
+const { admin, db } = require('./admin');
 
 module.exports = (req, res, next) => {
 	if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
 		})
 		.then((data) => {
 			req.user.handle = data.docs[0].data().handle;
-			//   req.user.imageUrl = data.docs[0].data().imageUrl;
+			req.user.imageUrl = data.docs[0].data().imageUrl;
 			return next();
 		})
 		.catch((err) => {

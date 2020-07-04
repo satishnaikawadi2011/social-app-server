@@ -5,6 +5,7 @@ admin.initializeApp({
 	credential  : admin.credential.cert(serviceAccount),
 	databaseURL : 'https://social-app-97a4d.firebaseio.com'
 });
+// admin.initializeApp();
 
 const db = admin.firestore();
 
