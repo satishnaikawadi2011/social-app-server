@@ -16,10 +16,18 @@ exports.signup = (req, res) => {
 	const errors = validationResult(req);
 	if (newUser.password !== newUser.confirmPassword) {
 		errors.confirmPassword = 'passwords must match';
-		return res.status(400).json({ error: 'Invalid Inputs!' });
 	}
 	if (!errors.isEmpty()) {
-		return res.status(400).json({ error: 'Invalid Inputs!' });
+		let error = {};
+		for (let i = 0; i <= errors.errors.length - 1; i++) {
+			const name = errors.errors[i].param;
+			const value = errors.errors[i].msg;
+			error[name] = value;
+		}
+		if (errors.confirmPassword) {
+			error.confirmPassword = errors.confirmPassword;
+		}
+		return res.status(400).json(error);
 	}
 
 	const noImg = 'no-img.png';
@@ -72,7 +80,14 @@ exports.login = (req, res) => {
 
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		return res.status(400).json({ error: 'Invalid Inputs!' });
+		let error = {};
+		for (let i = 0; i <= errors.errors.length - 1; i++) {
+			const name = errors.errors[i].param;
+			const value = errors.errors[i].msg;
+			error[name] = value;
+		}
+
+		return res.status(400).json(error);
 	}
 	firebase
 		.auth()
