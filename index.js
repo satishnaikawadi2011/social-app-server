@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const express = require('express');
 const auth = require('./utils/auth');
 const { check } = require('express-validator');
+const cors = require('cors');
 const { db } = require('./utils/admin');
 const {
 	getAllScreams,
@@ -22,6 +23,7 @@ const {
 	markNotificationsAsRead
 } = require('./handlers/users');
 const app = express();
+app.use(cors());
 
 // admin.initializeApp();
 
